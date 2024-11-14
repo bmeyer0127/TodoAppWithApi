@@ -59,5 +59,18 @@ namespace TodoApi.Controllers
             await _context.SaveChangesAsync();
             return Ok(DbTodo);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<Todo>>> DeleteTodoItem(int id)
+        {
+            var deletedTodo = await _context.Todos.FindAsync(id);
+
+            if (deletedTodo is null)
+                return NotFound();
+
+            _context.Todos.Remove(deletedTodo);
+            await _context.SaveChangesAsync();
+            return Ok(await _context.Todos.ToListAsync());
+        }
     }
 }
