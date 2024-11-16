@@ -1,12 +1,25 @@
 ﻿@page "/"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using TodoGui.Models
+@inject IHttpClientFactory ClientFactory
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Trying to access Todo API</h1>
 
 Welcome to your new app.
 
 @code{
-    
+    private IEnumerable<Todo> todos = [];
+    private bool getTodosError;
+    private bool shouldRender;
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
 
 }
