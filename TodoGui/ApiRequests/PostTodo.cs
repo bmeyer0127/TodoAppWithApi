@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TodoGui.Models
+﻿namespace TodoGui.ApiRequests
 {
-    public class Todo
+    public class PostTodo
     {
-        public int Id { get; set; }
-        [Required]
         public string Title { get; set; } = string.Empty;
         public string? TodoOwner { get; set; }
         public string? Description { get; set; }

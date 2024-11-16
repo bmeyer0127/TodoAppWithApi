@@ -1,8 +1,8 @@
 ﻿@page "/"
-@using System.Text.Json
+@* @using System.Text.Json
 @using System.Text.Json.Serialization
 @using TodoGui.Models
-@inject IHttpClientFactory ClientFactory
+@inject IHttpClientFactory ClientFactory *@
 
 <PageTitle>Home</PageTitle>
 
@@ -11,15 +11,15 @@
 Welcome to your new app.
 
 @code{
-    private IEnumerable<Todo> todos = [];
-    private bool getTodosError;
-    private bool shouldRender;
+    // private IEnumerable<Todo> todos = [];
+    // private bool getTodosError;
+    // private bool shouldRender;
 
-    protected override bool ShouldRender() => shouldRender;
+    // protected override bool ShouldRender() => shouldRender;
 
-    protected override async Task OnInitializedAsync()
-    {
+    // protected override async Task OnInitializedAsync()
+    // {
         
-    }
+    // }
 
 }
