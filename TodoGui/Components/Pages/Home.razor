@@ -8,7 +8,10 @@
 
 <h1>Trying to access Todo API</h1>
 
-Welcome to your new app.
+@foreach(var todo in todos)
+{
+    <p>@todo.Title</p>
+}
 
 @code{
     private IEnumerable<Todo> todos = [];
@@ -19,7 +22,25 @@ Welcome to your new app.
 
     protected override async Task OnInitializedAsync()
     {
-        
+        var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7262/api/Todo");
+        request.Headers.Add("Accept", "application/json");
+
+        var client = ClientFactory.CreateClient();
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            todos = await JsonSerializer.DeserializeAsync<IEnumerable<Todo>>(responseStream);
+        }
+        else
+        {
+            getTodosError = true;
+        }
+
+        shouldRender = true;
+
     }
 
 }
