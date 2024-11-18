@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// Access API
+//Access API
 //builder.Services.AddScoped(sp =>
 //    new HttpClient
 //    {
