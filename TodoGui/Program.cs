@@ -7,11 +7,6 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 //Access API
-//builder.Services.AddScoped(sp =>
-//    new HttpClient
-//    {
-//        BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "https://localhost:7262")
-//    });
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

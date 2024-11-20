@@ -8,13 +8,20 @@
 
 <h1>Trying to access Todo API</h1>
 
-@foreach(var todo in todos)
+@if (getTodosError || todos is null)
 {
-    <p>@todo.Title</p>
+    <p>shit ain't right</p>
+}
+else
+{
+    foreach(var todo in todos)
+    {
+        <p>@todo.Title</p>
+    }    
 }
 
 @code{
-    private IEnumerable<Todo> todos = [];
+    private IEnumerable<Todo> todos = new List<Todo>();
     private bool getTodosError;
     private bool shouldRender;
 
@@ -22,7 +29,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7262/api/Todo");
+        var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7262/api/todo");
         request.Headers.Add("Accept", "application/json");
 
         var client = ClientFactory.CreateClient();
@@ -32,14 +39,13 @@
         if (response.IsSuccessStatusCode)
         {
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            todos = await JsonSerializer.DeserializeAsync<IEnumerable<Todo>>(responseStream);
+            var options = new JsonSerializerOptions{ PropertyNameCaseInsensitive = true };
+            todos = await JsonSerializer.DeserializeAsync<IEnumerable<Todo>>(responseStream, options);
         }
         else
         {
             getTodosError = true;
         }
-
         shouldRender = true;
     }
-
 }
