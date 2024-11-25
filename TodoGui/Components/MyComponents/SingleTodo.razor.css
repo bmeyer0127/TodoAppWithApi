@@ -1,0 +1,10 @@
+li {
+  list-style-type: none;
+}
+
+.single-todo-component {
+  display: flex;
+  justify-content: space-between;
+}
+
+/*# sourceMappingURL=SingleTodo.razor.css.map */

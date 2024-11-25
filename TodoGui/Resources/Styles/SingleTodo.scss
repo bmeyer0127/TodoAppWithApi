@@ -1,0 +1,31 @@
+@import '_variables';
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+li {
+    list-style-type: none;
+}
+
+.single-todo-component {
+    display: flex;
+    justify-content: space-between
+}
+
+.label-container {
+    //display: flex;
+    //flex-direction: column;
+}
+
+.label-item {
+
+}
+
+.information-container {
+    //display: flex;
+    //flex-direction: column;
+}
+
+.information-item {
+
+}

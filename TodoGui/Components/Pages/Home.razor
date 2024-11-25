@@ -2,50 +2,14 @@
 @using System.Text.Json
 @using System.Text.Json.Serialization
 @using TodoGui.Models
+@using TodoGetAll
 @inject IHttpClientFactory ClientFactory
 
 <PageTitle>Home</PageTitle>
 
-<h1>Trying to access Todo API</h1>
+<h1>Todo List from external API</h1>
 
-@if (getTodosError || todos is null)
-{
-    <p>shit ain't right</p>
-}
-else
-{
-    foreach(var todo in todos)
-    {
-        <p>@todo.Title</p>
-    }    
-}
+<TodoGetAll />
 
 @code{
-    private IEnumerable<Todo> todos = new List<Todo>();
-    private bool getTodosError;
-    private bool shouldRender;
-
-    protected override bool ShouldRender() => shouldRender;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7262/api/todo");
-        request.Headers.Add("Accept", "application/json");
-
-        var client = ClientFactory.CreateClient();
-
-        var response = await client.SendAsync(request);
-
-        if (response.IsSuccessStatusCode)
-        {
-            using var responseStream = await response.Content.ReadAsStreamAsync();
-            var options = new JsonSerializerOptions{ PropertyNameCaseInsensitive = true };
-            todos = await JsonSerializer.DeserializeAsync<IEnumerable<Todo>>(responseStream, options);
-        }
-        else
-        {
-            getTodosError = true;
-        }
-        shouldRender = true;
-    }
 }
