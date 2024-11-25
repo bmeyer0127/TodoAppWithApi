@@ -5,16 +5,18 @@
 @using TodoGui.Models
 @using SingleTodo
 
-@foreach(var todo in todos)
-{
-    <SingleTodo 
-        Id="@todo.Id"
-        Title="@todo.Title"
-        TodoOwner="@todo.TodoOwner"
-        Description="@Description(todo.Description)"
-        isCompleted="@todo.isCompleted"/>
-}
-
+@if (todos is not null)
+{    
+    foreach(var todo in todos)
+    {
+        <SingleTodo 
+            Id="@todo.Id"
+            Title="@todo.Title"
+            TodoOwner="@todo.TodoOwner"
+            Description="@Description(todo.Description)"
+            isCompleted="@todo.isCompleted"/>
+    }
+}-
 @code{
     private IEnumerable<Todo>? todos = new List<Todo>();
     private bool getTodosError;
