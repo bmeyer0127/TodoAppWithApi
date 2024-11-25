@@ -11,7 +11,7 @@
         Id="@todo.Id"
         Title="@todo.Title"
         TodoOwner="@todo.TodoOwner"
-        Description="@todo.Description"
+        Description="@Description(todo.Description)"
         isCompleted="@todo.isCompleted"/>
 }
 
@@ -19,7 +19,7 @@
     private IEnumerable<Todo>? todos = new List<Todo>();
     private bool getTodosError;
     private bool shouldRender;
-    
+
     protected override async Task OnInitializedAsync()
     {
         var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7262/api/todo");
@@ -40,5 +40,14 @@
             getTodosError = true;
         }
         shouldRender = true;
+    }
+
+    private string? Description(string description)
+    {
+        if (description is null || description == "")
+        {
+            return ("N/A");
+        }
+        return description;
     }
 }

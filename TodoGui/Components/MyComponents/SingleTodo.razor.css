@@ -2,9 +2,22 @@ li {
   list-style-type: none;
 }
 
+ul {
+  padding: 0;
+}
+
 .single-todo-component {
   display: flex;
   justify-content: space-between;
+  width: 25%;
+}
+
+.label-container {
+  width: 50%;
+}
+
+.information-container {
+  width: 50%;
 }
 
 /*# sourceMappingURL=SingleTodo.razor.css.map */

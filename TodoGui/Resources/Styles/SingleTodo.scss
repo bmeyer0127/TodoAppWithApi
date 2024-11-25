@@ -7,14 +7,18 @@ li {
     list-style-type: none;
 }
 
+ul {
+    padding: 0;
+}
+
 .single-todo-component {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    width: 25%;
 }
 
 .label-container {
-    //display: flex;
-    //flex-direction: column;
+    width: 50%;
 }
 
 .label-item {
@@ -22,8 +26,7 @@ li {
 }
 
 .information-container {
-    //display: flex;
-    //flex-direction: column;
+    width: 50%;
 }
 
 .information-item {
