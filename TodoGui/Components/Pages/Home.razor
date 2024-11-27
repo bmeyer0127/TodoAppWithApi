@@ -1,9 +1,10 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 @using System.Text.Json
 @using System.Text.Json.Serialization
 @using TodoGui.Models
-@using TodoGetAll
-@using TodoGetSingle
+@using ApiRequestComponents.TodoGetAll
+@using ApiRequestComponents.TodoGetSingle
 @inject IHttpClientFactory ClientFactory
 
 <PageTitle>Home</PageTitle>
