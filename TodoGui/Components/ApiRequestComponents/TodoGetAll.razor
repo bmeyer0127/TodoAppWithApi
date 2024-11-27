@@ -1,11 +1,20 @@
 ﻿@namespace ApiRequestComponents.TodoGetAll
 @inject IHttpClientFactory ClientFactory
+@rendermode InteractiveServer
+@using TodoGui.Models
 @using System.Text.Json
 @using System.Text.Json.Serialization
-@using TodoGui.Models
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
 @using MyComponents.SingleTodo
 
-@if (todos is not null)
+<div class="input-group">
+    <input type="text" class="form-control" placeholder="Search Todo Titles" @bind="searchInput" @bind:event="oninput" />
+</div>
+<p>@searchInput</p>
+
+
+@if (todos is not null && searchInput == "")
 {    
     foreach(var todo in todos)
     {
@@ -16,11 +25,12 @@
             Description="@Description(todo.Description)"
             isCompleted="@todo.isCompleted"/>
     }
-}-
+}
 @code{
     private IEnumerable<Todo>? todos = new List<Todo>();
     private bool getTodosError;
     private bool shouldRender;
+    private string searchInput = "";
 
     protected override async Task OnInitializedAsync()
     {
