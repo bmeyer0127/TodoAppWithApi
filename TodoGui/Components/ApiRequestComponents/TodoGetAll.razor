@@ -6,28 +6,43 @@
 @using System.Text.Json.Serialization
 @using Microsoft.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Web
+@using System
+@using System.Linq
 @using MyComponents.SingleTodo
 
 <div class="input-group">
     <input type="text" class="form-control" placeholder="Search Todo Titles" @bind="searchInput" @bind:event="oninput" />
 </div>
-<p>@searchInput</p>
-
+@if (searchInput is not null && searchInput != "")
+{
+    foreach (var todo in todos.Where(i => i.Title.Contains(searchInput)).OrderBy(i => i.Id))
+    {
+        <SingleTodo Id="@todo.Id"
+                    Title="@todo.Title"
+                    TodoOwner="@todo.TodoOwner"
+                    Description="@Description(todo.Description)"
+        isCompleted="@todo.isCompleted" />
+    }
+    if (todos.Where(i => i.Title.Contains(searchInput)).Count() == 0)
+    {
+        <h2>No Search Results :/</h2>
+    }
+}
 
 @if (todos is not null && searchInput == "")
 {    
     foreach(var todo in todos)
     {
-        <SingleTodo 
-            Id="@todo.Id"
-            Title="@todo.Title"
-            TodoOwner="@todo.TodoOwner"
-            Description="@Description(todo.Description)"
-            isCompleted="@todo.isCompleted"/>
+        <SingleTodo Id="@todo.Id"
+                    Title="@todo.Title"
+                    TodoOwner="@todo.TodoOwner"
+                    Description="@Description(todo.Description)"
+                    isCompleted="@todo.isCompleted" />
     }
 }
 @code{
     private IEnumerable<Todo>? todos = new List<Todo>();
+    // private IEnumerable<Todo>? searchedTodos = new List<Todo>();
     private bool getTodosError;
     private bool shouldRender;
     private string searchInput = "";
