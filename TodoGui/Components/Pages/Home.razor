@@ -4,14 +4,14 @@
 @using System.Text.Json.Serialization
 @using TodoGui.Models
 @using ApiRequestComponents.TodoGetAll
-@using ApiRequestComponents.TodoGetSingle
+@using ApiRequestComponents.TodoGetSearchResult
 @inject IHttpClientFactory ClientFactory
 
 <PageTitle>Home</PageTitle>
 
 <h1>Todo List from external API</h1>
 
-<TodoGetSingle />
+<TodoGetSearchResult />
 <TodoGetAll />
 
 @code{
