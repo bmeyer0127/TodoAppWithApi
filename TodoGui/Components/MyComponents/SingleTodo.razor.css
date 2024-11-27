@@ -6,12 +6,6 @@ ul {
   padding: 0;
 }
 
-.single-todo-component {
-  display: flex;
-  justify-content: space-between;
-  width: 25%;
-}
-
 .label-container {
   width: 50%;
 }

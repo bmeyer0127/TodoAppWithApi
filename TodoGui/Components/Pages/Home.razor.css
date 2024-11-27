@@ -1,2 +1,7 @@
-﻿body {
+.home-todo-container {
+  display: flex;
+  justify-content: space-between;
+  width: 25%;
 }
+
+/*# sourceMappingURL=Home.razor.css.map */
