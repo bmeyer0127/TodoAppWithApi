@@ -10,7 +10,25 @@
 @using System.Linq
 @using MyComponents.SingleTodo
 
-<h3>TodoPost</h3>
+<button class="btn btn-outline-primary" data-toggle="modal" data-target="#NewTodoModal">Add New</button>
+
+<div id="NewTodoModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add a New Todo Item</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="#NewTodoModal"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="NewTodoModal">Close</button>
+                <button type="button" class="btn btn-outline-primary">Save Todo</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
 
