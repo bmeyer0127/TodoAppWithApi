@@ -6,6 +6,11 @@ ul {
   padding: 0;
 }
 
+.single-todo-component {
+  display: flex;
+  justify-content: space-between;
+}
+
 .label-container {
   width: 50%;
 }

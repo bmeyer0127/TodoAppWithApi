@@ -13,7 +13,7 @@
 <div class="input-group">
     <input type="text" class="form-control" placeholder="Search Todo Titles" @bind="searchInput" @bind:event="oninput" />
 </div>
-@if (searchInput is not null && searchInput != "")
+@if (searchInput != null && searchInput != "")
 {
     foreach (var todo in todos.Where(i => i.Title.Contains(searchInput)).OrderBy(i => i.Id))
     {
