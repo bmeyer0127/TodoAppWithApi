@@ -43,8 +43,8 @@
 @code{
     private IEnumerable<Todo>? todos = new List<Todo>();
     private bool getTodosError;
-    private bool shouldRender;
     private string searchInput = "";
+    public bool shouldRender = false;
 
     protected override async Task OnInitializedAsync()
     {
