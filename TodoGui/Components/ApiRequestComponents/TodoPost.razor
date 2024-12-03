@@ -20,7 +20,16 @@
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p>hello</p>
+                @* Form Inputs *@
+                <div class="input-group p-1">
+                    <input type="text" class="form-control post-input" placeholder="Todo Title..." @bind="title"/>
+                </div>
+                <div class="input-group p-1">
+                    <textarea type="text" class="form-control post-input" placeholder="Extra Details..." style="resize: none" rows="2" @bind="description" @bind:event="oninput"/>
+                </div>
+                <div class="input-group p-1">
+                    <input type="text" class="form-control post-input" placeholder="Whose task?..." @bind="owner"/>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -31,5 +40,8 @@
 </div>
 
 @code {
+    private string? title = "";
+    private string? description = "";
+    private string? owner = "";
 
 }
