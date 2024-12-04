@@ -56,7 +56,7 @@
     private bool getTodosError;
     private string searchInput = "";
 
-    protected override async Task OnInitializedAsync()
+    private async Task LoadTodos()
     {
         var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7262/api/todo");
         request.Headers.Add("Accept", "application/json");
@@ -75,6 +75,11 @@
         {
             getTodosError = true;
         }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadTodos();
     }
 
     private string? Description(string description)
@@ -88,22 +93,14 @@
 
     private async void HandleSubmit()
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7262/api/todo");
-        request.Headers.Add("Accept", "application/json");
-
-        var client = ClientFactory.CreateClient();
-
-        var response = await client.SendAsync(request);
-
-        if (response.IsSuccessStatusCode)
-        {
-            using var responseStream = await response.Content.ReadAsStreamAsync();
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            todos = await JsonSerializer.DeserializeAsync<IEnumerable<Todo>>(responseStream, options);
-        }
-        else
-        {
-            getTodosError = true;
-        }
+        await LoadTodos();
+        StateHasChanged();
     }
+
+    // Both top and bottom are not working
+
+    // private void HandleSubmit()
+    // {
+    //     StateHasChanged();
+    // }
 }
