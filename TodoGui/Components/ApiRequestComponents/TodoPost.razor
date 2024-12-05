@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<Toasts class="p-3" Messages="messages" Placement="ToastsPlacement.BottomLeft" />
+<Toasts class="p-3" Messages="messages" AutoHide="true" Delay="5000" Placement="ToastsPlacement.BottomLeft" />
 
 @code {
     [Parameter] 
@@ -51,12 +51,12 @@
 
     List<ToastMessage> messages = new List<ToastMessage>();
 
-    private void ShowMessage(ToastType toastType) => messages.Add(CreateToastMessage(toastType));
+    private void ShowMessage() => messages.Add(CreateToastMessage());
 
-    private ToastMessage CreateToastMessage(ToastType toastType)
+    private ToastMessage CreateToastMessage()
     => new ToastMessage
         {
-            Type = toastType,
+            Type = ToastType.Success,
             Title = "Successfully Sent Todo",
             Message = "Todo Item Sent!"
         };
@@ -85,7 +85,7 @@
 
         if (response.IsSuccessStatusCode)
         {
-            ShowMessage(ToastType.Success);
+            ShowMessage();
             title = "";
             description = "";
             owner = "";
