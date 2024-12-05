@@ -2,12 +2,38 @@
 @inject IHttpClientFactory ClientFactory
 @rendermode InteractiveServer
 @using TodoGui.Models
+@using MyComponents.SingleTodo
 
-<button type="button" class="btn btn-danger delete-button" @onclick="async() => await DeleteItemAsync(id)">Delete</button>
+@* <button type="button" class="btn btn-danger delete-button" @onclick="async() => await DeleteItemAsync(id)">Delete</button> *@
+<button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+
+<div id="deleteModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Delete this?</h1>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <SingleTodo Id="@Todo.Id"
+                            Title="@Todo.Title"
+                            TodoOwner="@Todo.TodoOwner"
+                            Description="@Description(Todo.Description)"
+                            isCompleted="@Todo.isCompleted" />
+                <h3>(This is super mega permanent)</h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-outline-danger" data-bs-dismiss="modal" @onclick="async() => await DeleteItemAsync(id)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
     [Parameter] public EventCallback OnDelete { get; set; }
     [Parameter] public int id { get; set; }
+    [Parameter] public Todo? Todo { get; set; }
 
     public async Task DeleteItemAsync(int id)
     {
@@ -21,6 +47,15 @@
             //Display toast message
             await OnDelete.InvokeAsync();
         }
+    }
+
+    private string? Description(string description)
+    {
+        if (description is null || description == "")
+        {
+            return ("N/A");
+        }
+        return description;
     }
 
 }
