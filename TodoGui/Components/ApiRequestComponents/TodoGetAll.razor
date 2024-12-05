@@ -10,6 +10,7 @@
 @using System.Linq
 @using MyComponents.SingleTodo
 @using ApiRequestComponents.TodoPost
+@using ApiRequestComponents.TodoDelete
 
 <div class="container">
     <div class="row">
@@ -19,7 +20,7 @@
             </div>
         </div>
         <div class="col-2">
-            <TodoPost OnSubmit="HandleSubmit"/>
+            <TodoPost OnSubmit="HandleChange"/>
         </div>
     </div>
 </div>
@@ -28,11 +29,14 @@
 {
     foreach (var todo in todos.Where(i => i.Title.ToLower().Contains(searchInput.ToLower())).OrderBy(i => i.Id))
     {
-        <SingleTodo Id="@todo.Id"
-                    Title="@todo.Title"
-                    TodoOwner="@todo.TodoOwner"
-                    Description="@Description(todo.Description)"
-        isCompleted="@todo.isCompleted" />
+        <div class="">
+            <SingleTodo Id="@todo.Id"
+                        Title="@todo.Title"
+                        TodoOwner="@todo.TodoOwner"
+                        Description="@Description(todo.Description)"
+                        isCompleted="@todo.isCompleted" />
+            <TodoDelete id="todo.Id" OnDelete="HandleChange" />
+        </div>
     }
     if (todos.Where(i => i.Title.Contains(searchInput)).Count() == 0)
     {
@@ -44,11 +48,14 @@
 {    
     foreach(var todo in todos)
     {
-        <SingleTodo Id="@todo.Id"
-                    Title="@todo.Title"
-                    TodoOwner="@todo.TodoOwner"
-                    Description="@Description(todo.Description)"
-                    isCompleted="@todo.isCompleted" />
+        <div class="">
+            <SingleTodo Id="@todo.Id"
+                        Title="@todo.Title"
+                        TodoOwner="@todo.TodoOwner"
+                        Description="@Description(todo.Description)"
+                        isCompleted="@todo.isCompleted" />
+            <TodoDelete id="todo.Id" OnDelete="HandleChange" />
+        </div>
     }
 }
 @code{
@@ -91,7 +98,7 @@
         return description;
     }
 
-    private async void HandleSubmit()
+    private async void HandleChange()
     {
         await LoadTodos();
         StateHasChanged();

@@ -1,0 +1,26 @@
+﻿@namespace ApiRequestComponents.TodoDelete
+@inject IHttpClientFactory ClientFactory
+@rendermode InteractiveServer
+@using TodoGui.Models
+
+<button type="button" class="btn btn-danger delete-button" @onclick="async() => await DeleteItemAsync(id)">Delete</button>
+
+@code {
+    [Parameter] public EventCallback OnDelete { get; set; }
+    [Parameter] public int id { get; set; }
+
+    public async Task DeleteItemAsync(int id)
+    {
+        var client = ClientFactory.CreateClient();
+        var request = new HttpRequestMessage(HttpMethod.Delete, $"https://localhost:7262/api/todo/{id}");
+
+        var response = await client.SendAsync(request);
+
+        if(response.IsSuccessStatusCode)
+        {
+            //Display toast message
+            await OnDelete.InvokeAsync();
+        }
+    }
+
+}
