@@ -9,11 +9,22 @@
 @using System
 @using System.Linq
 @using MyComponents.SingleTodo
+@using ApiRequestComponents.TodoPost
 
-<div class="input-group">
-    <input type="text" class="form-control" placeholder="Search Todo Titles" @bind="searchInput" @bind:event="oninput" />
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <div class="input-group pt-3 pb-3">
+                <input type="text" class="form-control" placeholder="Search Todo Titles" @bind="searchInput" @bind:event="oninput" />
+            </div>
+        </div>
+        <div class="col-2">
+            <TodoPost OnSubmit="HandleSubmit"/>
+        </div>
+    </div>
 </div>
-@if (searchInput is not null && searchInput != "")
+
+@if (searchInput != null && searchInput != "")
 {
     foreach (var todo in todos.Where(i => i.Title.Contains(searchInput)).OrderBy(i => i.Id))
     {
@@ -42,12 +53,10 @@
 }
 @code{
     private IEnumerable<Todo>? todos = new List<Todo>();
-    // private IEnumerable<Todo>? searchedTodos = new List<Todo>();
     private bool getTodosError;
-    private bool shouldRender;
     private string searchInput = "";
 
-    protected override async Task OnInitializedAsync()
+    private async Task LoadTodos()
     {
         var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7262/api/todo");
         request.Headers.Add("Accept", "application/json");
@@ -66,7 +75,11 @@
         {
             getTodosError = true;
         }
-        shouldRender = true;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadTodos();
     }
 
     private string? Description(string description)
@@ -76,5 +89,11 @@
             return ("N/A");
         }
         return description;
+    }
+
+    private async void HandleSubmit()
+    {
+        await LoadTodos();
+        StateHasChanged();
     }
 }

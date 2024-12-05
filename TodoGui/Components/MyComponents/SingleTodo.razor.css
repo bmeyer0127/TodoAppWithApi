@@ -9,7 +9,6 @@ ul {
 .single-todo-component {
   display: flex;
   justify-content: space-between;
-  width: 25%;
 }
 
 .label-container {

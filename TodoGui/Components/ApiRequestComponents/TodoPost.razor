@@ -1,0 +1,95 @@
+﻿@namespace ApiRequestComponents.TodoPost
+@inject IHttpClientFactory ClientFactory
+@rendermode InteractiveServer
+@using ApiRequestComponents.TodoGetAll
+@using TodoGui.Models
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
+@using System
+@using System.Linq
+@using MyComponents.SingleTodo
+
+<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#newTodoModal" aria-hidden="true">Add New</button>
+
+<div id="newTodoModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Add a New Todo Item</h1>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                @* Form Inputs *@
+                <div class="input-group p-1">
+                    <input type="text" class="form-control post-input" placeholder="Todo Title..." @bind="title"/>
+                </div>
+                <div class="input-group p-1">
+                    <textarea type="text" class="form-control post-input" placeholder="Extra Details..." style="resize: none" rows="2" @bind="description"/>
+                </div>
+                <div class="input-group p-1">
+                    <input type="text" class="form-control post-input" placeholder="Whose task?..." @bind="owner"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" @onclick="SaveTodo">Save Todo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<Toasts class="p-3" Messages="messages" Placement="ToastsPlacement.BottomLeft" />
+
+@code {
+    [Parameter] 
+    public EventCallback OnSubmit { get; set; }
+    private string? title = "";
+    private string? description = "";
+    private string? owner = "";
+
+    List<ToastMessage> messages = new List<ToastMessage>();
+
+    private void ShowMessage(ToastType toastType) => messages.Add(CreateToastMessage(toastType));
+
+    private ToastMessage CreateToastMessage(ToastType toastType)
+    => new ToastMessage
+        {
+            Type = toastType,
+            Title = "Successfully Sent Todo",
+            Message = "Todo Item Sent!"
+        };
+
+    private async Task SaveTodo()
+    {
+        var newTodo = new Todo
+            {
+                Title = title,
+                Description = description,
+                TodoOwner = owner,
+                isCompleted = false
+            };
+        await createItemAsync(newTodo);
+    }
+
+    public async Task createItemAsync(Todo todo)
+    {
+        var client = ClientFactory.CreateClient();
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7262/api/todo")
+            {
+                Content = new StringContent(JsonSerializer.Serialize(todo), System.Text.Encoding.UTF8, "application/json")
+            };
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            ShowMessage(ToastType.Success);
+            title = "";
+            description = "";
+            owner = "";
+            await OnSubmit.InvokeAsync();
+        }
+    }
+}
