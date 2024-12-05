@@ -26,7 +26,7 @@
 
 @if (searchInput != null && searchInput != "")
 {
-    foreach (var todo in todos.Where(i => i.Title.Contains(searchInput)).OrderBy(i => i.Id))
+    foreach (var todo in todos.Where(i => i.Title.ToLower().Contains(searchInput.ToLower())).OrderBy(i => i.Id))
     {
         <SingleTodo Id="@todo.Id"
                     Title="@todo.Title"
