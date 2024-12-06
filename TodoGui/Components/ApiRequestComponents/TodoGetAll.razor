@@ -36,7 +36,7 @@
                         TodoOwner="@todo.TodoOwner"
                         Description="@Description(todo.Description)"
                         isCompleted="@todo.isCompleted" />
-            <TodoDelete todoId="todo.Id" OnDelete="HandleChange" todo="todo" />
+            <TodoDelete todoId="@todo.Id" OnDelete="HandleChange" todo="@todo" />
         </div>
     }
     if (todos.Where(i => i.Title.ToLower().Contains(searchInput.ToLower())).Count() == 0)
@@ -55,7 +55,7 @@ else
                         TodoOwner="@todo.TodoOwner"
                         Description="@Description(todo.Description)"
                         isCompleted="@todo.isCompleted" />
-            <TodoDelete todoId="todo.Id" OnDelete="HandleChange" todo="todo" />
+            <TodoDelete todoId="@todo.Id" OnDelete="HandleChange" todo="@todo" />
             <p>@todo.Title</p>
         </div>
     }
