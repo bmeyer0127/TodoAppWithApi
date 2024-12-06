@@ -5,9 +5,9 @@
 @using MyComponents.SingleTodo
 
 @* <button type="button" class="btn btn-danger delete-button" @onclick="async() => await DeleteItemAsync(id)">Delete</button> *@
-<button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+<button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal" data-bs-target=@($"#deleteTodo-{todoId}")>Delete</button>
 
-<div id="deleteModal" class="modal fade" tabindex="-1">
+<div id="deleteTodo-@todoId" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,7 +20,6 @@
                             TodoOwner="@todo.TodoOwner"
                             Description="@Description(todo.Description)"
                             isCompleted="@todo.isCompleted" />
-                <p>@todoId</p>
                 <h4>(This is super mega permanent)</h4>
             </div>
             <div class="modal-footer">
