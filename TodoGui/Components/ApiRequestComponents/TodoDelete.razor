@@ -1,0 +1,75 @@
+﻿@namespace ApiRequestComponents.TodoDelete
+@inject IHttpClientFactory ClientFactory
+@rendermode InteractiveServer
+@using TodoGui.Models
+@using MyComponents.SingleTodo
+
+@* <button type="button" class="btn btn-danger delete-button" @onclick="async() => await DeleteItemAsync(id)">Delete</button> *@
+<button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal" data-bs-target=@($"#deleteTodo-{todoId}")>Delete</button>
+
+<div id="deleteTodo-@todoId" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Delete this?</h1>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <SingleTodo Id="@todoId"
+                            Title="@todo.Title"
+                            TodoOwner="@todo.TodoOwner"
+                            Description="@Description(todo.Description)"
+                            isCompleted="@todo.isCompleted" />
+                <h4>(This is super mega permanent)</h4>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-outline-danger" data-bs-dismiss="modal" @onclick="async() => await DeleteItemAsync(todo.Id)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<Toasts class="p-3" Messages="messages" AutoHide="true" Delay="5000" Placement="ToastsPlacement.BottomLeft" />
+
+@code {
+    [Parameter] public EventCallback OnDelete { get; set; }
+    [Parameter] public int todoId { get; set; }
+    [Parameter] public Todo? todo { get; set; }
+
+    List<ToastMessage> messages = new List<ToastMessage>();
+
+    private void ShowMessage() => messages.Add(CreateToastMessage());
+
+    private ToastMessage CreateToastMessage()
+    => new ToastMessage
+        {
+            Type = ToastType.Success,
+            Title = "Successfully Deleted todo Item!",
+            Message = "That item got beefed"
+        };
+
+    public async Task DeleteItemAsync(int todoId)
+    {
+        var client = ClientFactory.CreateClient();
+        var request = new HttpRequestMessage(HttpMethod.Delete, $"https://localhost:7262/api/todo/{todoId}");
+
+        var response = await client.SendAsync(request);
+
+        if(response.IsSuccessStatusCode)
+        {
+            await OnDelete.InvokeAsync();
+            ShowMessage();
+        }
+    }
+
+    private string? Description(string description)
+    {
+        if (description is null || description == "")
+        {
+            return ("N/A");
+        }
+        return description;
+    }
+
+}
