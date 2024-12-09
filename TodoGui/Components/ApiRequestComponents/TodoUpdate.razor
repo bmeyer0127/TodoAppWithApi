@@ -1,8 +1,9 @@
 ﻿@namespace ApiRequestComponents.TodoUpdate
 @inject IHttpClientFactory ClientFactory
 @rendermode InteractiveServer
+@using TodoGui.Models
 
-<div id="modal-id" class="modal fade" tabindex="-1">
+<div id="@modalId" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,13 +12,13 @@
             </div>
             <div class="modal-body">
                 <div class="input-group p-1">
-                    <input type="text" class="form-control post-input" placeholder="Todo Title..." @* @bind="title" *@ />
+                    <input type="text" class="form-control post-input" placeholder="@todo.Title" @bind="newTodo.Title"/>
                 </div>
                 <div class="input-group p-1">
-                    <textarea type="text" class="form-control post-input" placeholder="Extra Details..." style="resize: none" rows="2" @* @bind="description" *@ />
+                    <textarea type="text" class="form-control post-input" placeholder="Extra Details..." @bind="newTodo.Description" style="resize: none" rows="2" />
                 </div>
                 <div class="input-group p-1">
-                    <input type="text" class="form-control post-input" placeholder="Whose task?..." @* @bind="owner" *@ />
+                    <input type="text" class="form-control post-input" placeholder="@todo.TodoOwner" @bind="newTodo.TodoOwner"/>
                 </div>
             </div>
             <div class="modal-footer">
@@ -29,6 +30,8 @@
 </div>
 
 @code {
-    [Parameter] public string? todoId { get; set; }
+    [Parameter] public Todo? todo { get; set; }
+    [Parameter] public string? modalId { get; set; }
 
+    public Todo newTodo = new Todo();
 }
