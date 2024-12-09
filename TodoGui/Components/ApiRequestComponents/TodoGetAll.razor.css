@@ -1,7 +1,7 @@
 .single-todo-container {
   border: 1px solid black;
   border-radius: 15px;
-  padding: 1rem;
+  padding: 0.5rem;
   margin-top: 1rem;
   display: flex;
 }
