@@ -9,6 +9,7 @@
     padding: .5rem;
     margin-top: 1rem;
     display: flex;
+    z-index: -1;
 }
 
 .single-todo-container:hover {
