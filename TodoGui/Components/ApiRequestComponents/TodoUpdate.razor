@@ -10,7 +10,15 @@
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p>This is where the updating will be happening</p>
+                <div class="input-group p-1">
+                    <input type="text" class="form-control post-input" placeholder="Todo Title..." @* @bind="title" *@ />
+                </div>
+                <div class="input-group p-1">
+                    <textarea type="text" class="form-control post-input" placeholder="Extra Details..." style="resize: none" rows="2" @* @bind="description" *@ />
+                </div>
+                <div class="input-group p-1">
+                    <input type="text" class="form-control post-input" placeholder="Whose task?..." @* @bind="owner" *@ />
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
