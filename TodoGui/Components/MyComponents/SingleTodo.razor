@@ -1,7 +1,44 @@
 ﻿@namespace MyComponents.SingleTodo
 
 <div class="single-todo-component">
-    <div class="label-container">
+    <div class="container">
+        <ul>
+            <li class="row info-row">
+                <div class="col">
+                    <div class="label-item">Todo:</div>
+                </div>
+                <div class="col">
+                    <div class="information-item">@Title</div>
+                </div>
+            </li>
+            <li class="row info-row">
+                <div class="col">
+                    <div class="label-item">Details:</div>
+                </div>
+                <div class="col">
+                    <div class="information-item">@Description</div>
+                </div>
+            </li>
+            <li class="row info-row">
+                <div class="col">
+                    <div class="label-item">Whose job it is:</div>
+                </div>
+                <div class="col">
+                    <div class="information-item">@TodoOwner</div>
+                </div>
+            </li>
+            <li class="row info-row">
+                <div class="col">
+                    <div class="label-item">Is it done?</div>
+                </div>
+                <div class="col">
+                    <div class="information-item">@isCompleted</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    </div>
+    @* <div class="label-container">
         <ul>
             <li class="label-item">Todo:</li>
             <li class="label-item">Details:</li>
@@ -16,8 +53,8 @@
             <li class="information-item">@TodoOwner</li>
             <li class="information-item">@isCompleted</li>
         </ul>
-    </div>
-</div>
+    </div> 
+</div> *@
 
 @code {
     [Parameter]
