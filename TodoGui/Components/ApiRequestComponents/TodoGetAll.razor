@@ -31,7 +31,7 @@
     foreach (var todo in todos.Where(i => i.Title.ToLower().Contains(searchInput.ToLower())).OrderBy(i => i.Id))
     {
         @* <TodoUpdate todo="todo"/> *@
-        <div class="single-todo-container" data-bs-toggle="modal" data-bs-target="#modal-id" @onclick="() => {}">
+        <div class="single-todo-container">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -43,12 +43,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6"></div>
-                    <div class="col-3">
+                    <div class="col-8"></div>
+                    <div class="col-2">
                         <TodoUpdate todo="todo" />
                     </div>
-                    <div class="col-3 delete-button-container">
-                        <TodoDelete todoId="@todo.Id" OnDelete="HandleChange" todo="@todo" />
+                    <div class="col-2 delete-button-container">
+                        <TodoDelete 
+                            todoId="@todo.Id" 
+                            OnDelete="HandleChange" 
+                            todo="@todo" />
                     </div>
                 </div>
             </div>
@@ -63,7 +66,7 @@ else
 {    
     foreach(var todo in todos)
     {
-        <div class="single-todo-container" data-bs-toggle="modal" data-bs-target=@($"#updateTodo-{todo.Id}") @onclick="() => {}">
+        <div class="single-todo-container">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -75,12 +78,15 @@ else
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6"></div>
-                    <div class="col-3">
+                    <div class="col-8"></div>
+                    <div class="col-2">
                         <TodoUpdate todo="todo" />
                     </div>
-                    <div class="col-3 delete-button-container">
-                        <TodoDelete todoId="@todo.Id" OnDelete="HandleChange" todo="@todo" />
+                    <div class="col-2 delete-button-container">
+                        <TodoDelete 
+                            todoId="@todo.Id" 
+                            OnDelete="HandleChange" 
+                            todo="@todo" />
                     </div>
                 </div>
             </div>

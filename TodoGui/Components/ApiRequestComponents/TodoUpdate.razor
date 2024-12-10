@@ -14,13 +14,13 @@
             </div>
             <div class="modal-body">
                 <div class="input-group p-1">
-                    <input type="text" class="form-control post-input" placeholder="@todo.Title" @bind="newTodo.Title"/>
+                    <input type="text" class="form-control post-input" @bind="todo.Title" />
                 </div>
                 <div class="input-group p-1">
-                    <textarea type="text" class="form-control post-input" placeholder="Extra Details..." @bind="newTodo.Description" style="resize: none" rows="2" />
+                    <textarea type="text" class="form-control post-input" @bind="todo.Description" style="resize: none" rows="2" />
                 </div>
                 <div class="input-group p-1">
-                    <input type="text" class="form-control post-input" placeholder="@todo.TodoOwner" @bind="newTodo.TodoOwner"/>
+                    <input type="text" class="form-control post-input" @bind="todo.TodoOwner"/>
                 </div>
             </div>
             <div class="modal-footer">
