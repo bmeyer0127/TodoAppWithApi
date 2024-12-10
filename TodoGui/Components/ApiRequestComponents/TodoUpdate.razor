@@ -22,6 +22,11 @@
                 <div class="input-group p-1">
                     <input type="text" class="form-control post-input" @bind="todo.TodoOwner"/>
                 </div>
+                <div class="input-group p-1">
+                    @{isChecked = todo.isCompleted ? true : false;}
+                    <p class="pe-2">Completed?</p>
+                    <input class="form-check-input checkbox" type="checkbox" @bind="isChecked" id="isCompletedCheckbox" />
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -33,7 +38,8 @@
 
 @code {
     [Parameter] public Todo? todo { get; set; }
-    // [Parameter] public string? modalId { get; set; }
 
     public Todo newTodo = new Todo();
+
+    public bool isChecked;
 }
