@@ -30,7 +30,7 @@
 {
     foreach (var todo in todos.Where(i => i.Title.ToLower().Contains(searchInput.ToLower())).OrderBy(i => i.Id))
     {
-        <TodoUpdate todo="todo"/>
+        @* <TodoUpdate todo="todo"/> *@
         <div class="single-todo-container" data-bs-toggle="modal" data-bs-target="#modal-id" @onclick="() => {}">
             <div class="container">
                 <div class="row">
@@ -44,7 +44,10 @@
                 </div>
                 <div class="row">
                     <div class="col-6"></div>
-                    <div class="col-6 delete-button-container">
+                    <div class="col-3">
+                        <TodoUpdate todo="todo" />
+                    </div>
+                    <div class="col-3 delete-button-container">
                         <TodoDelete todoId="@todo.Id" OnDelete="HandleChange" todo="@todo" />
                     </div>
                 </div>
@@ -60,7 +63,6 @@ else
 {    
     foreach(var todo in todos)
     {
-        <TodoUpdate todo="todo" modalId=@($"updateTodo-{todo.Id}")/>
         <div class="single-todo-container" data-bs-toggle="modal" data-bs-target=@($"#updateTodo-{todo.Id}") @onclick="() => {}">
             <div class="container">
                 <div class="row">
@@ -74,7 +76,10 @@ else
                 </div>
                 <div class="row">
                     <div class="col-6"></div>
-                    <div class="col-6 delete-button-container">
+                    <div class="col-3">
+                        <TodoUpdate todo="todo" />
+                    </div>
+                    <div class="col-3 delete-button-container">
                         <TodoDelete todoId="@todo.Id" OnDelete="HandleChange" todo="@todo" />
                     </div>
                 </div>

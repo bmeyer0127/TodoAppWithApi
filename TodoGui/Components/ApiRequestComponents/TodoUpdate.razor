@@ -3,7 +3,9 @@
 @rendermode InteractiveServer
 @using TodoGui.Models
 
-<div id="@modalId" class="modal fade" tabindex="-1">
+<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target=@($"#modalId-{todo.Id}")>Edit</button>
+
+<div id=@($"modalId-{todo.Id}") class="modal fade" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -31,7 +33,7 @@
 
 @code {
     [Parameter] public Todo? todo { get; set; }
-    [Parameter] public string? modalId { get; set; }
+    // [Parameter] public string? modalId { get; set; }
 
     public Todo newTodo = new Todo();
 }
