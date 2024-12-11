@@ -27,9 +27,8 @@
                     <input type="text" class="form-control post-input" @bind="todo.TodoOwner"/>
                 </div>
                 <div class="input-group p-1">
-                    @{isChecked = todo.isCompleted ? true : false;}
                     <p class="pe-2">Completed?</p>
-                    <input class="form-check-input checkbox" type="checkbox" @bind="isChecked" id="isCompletedCheckbox" />
+                    <input class="form-check-input checkbox" type="checkbox" @bind="todo.isCompleted" id="isCompletedCheckbox" />
                 </div>
             </div>
             <div class="modal-footer">
@@ -48,17 +47,22 @@
 
     List<ToastMessage> messages = new List<ToastMessage>();
 
-    private void ShowMessage() => messages.Add(CreateToastMessage());
+    private void ShowSuccess() => messages.Add(ToastSuccess);
+    private void ShowNoChange() => messages.Add(ToastNoAlters);
 
-    private ToastMessage CreateToastMessage()
-    => new ToastMessage
+    private ToastMessage ToastSuccess = new ToastMessage
         {
             Type = ToastType.Success,
             Title = "Successfully Updated Todo Item!",
             Message = "That item got altered to high hell!"
         };
 
-    public bool isChecked;
+    private ToastMessage ToastNoAlters = new ToastMessage
+        {
+            Type = ToastType.Success,
+            Title = "Nothing Changed",
+            Message = "It's all kinda the same"
+        };
 
     public async Task UpdateItemAsync(Todo todo)
     {
@@ -73,9 +77,7 @@
         if (response.IsSuccessStatusCode)
         {
             await OnUpdate.InvokeAsync();
-            ShowMessage();
-
-            
+            ShowSuccess();
         }
     }
 }
