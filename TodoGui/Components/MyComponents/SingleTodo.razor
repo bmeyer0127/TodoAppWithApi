@@ -32,7 +32,7 @@
                     <div class="label-item">Is it done?</div>
                 </div>
                 <div class="col">
-                    <div class="information-item">@isCompleted</div>
+                    <div class="information-item">@(isCompleted ? "Completed" : "Not Completed")</div>
                 </div>
             </li>
         </ul>
@@ -54,5 +54,4 @@
 
     [Parameter]
     public bool isCompleted { get; set; }
-
 }
