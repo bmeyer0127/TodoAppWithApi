@@ -1,6 +1,10 @@
 ﻿@namespace ApiRequestComponents.TodoUpdate
 @inject IHttpClientFactory ClientFactory
 @rendermode InteractiveServer
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
 @using TodoGui.Models
 
 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target=@($"#modalId-{todo.Id}")>Edit</button>
@@ -30,7 +34,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-outline-danger" data-bs-dismiss="modal" @onclick="() => {}">Save</button>
+                <button class="btn btn-outline-danger" data-bs-dismiss="modal" @onclick="() => UpdateItemAsync(todo.Id, todo)">Save</button>
             </div>
         </div>
     </div>
@@ -38,8 +42,24 @@
 
 @code {
     [Parameter] public Todo? todo { get; set; }
-
     public Todo newTodo = new Todo();
-
     public bool isChecked;
+
+    public async Task UpdateItemAsync(int todoId, Todo todo)
+    {
+        var client = ClientFactory.CreateClient();
+        var request = new HttpRequestMessage(HttpMethod.Put, $"https://localhost:7262/api/todo/{todoId}")
+            {
+                Content = new StringContent(JsonSerializer.Serialize(todo), System.Text.Encoding.UTF8, "application/json")
+            };
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            // Call TodoGetAll to update
+            // Send toast message
+            Console.WriteLine("Peepee");
+        }
+    }
 }
