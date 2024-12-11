@@ -34,21 +34,36 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-outline-danger" data-bs-dismiss="modal" @onclick="() => UpdateItemAsync(todo.Id, todo)">Save</button>
+                <button class="btn btn-outline-danger" data-bs-dismiss="modal" @onclick="() => UpdateItemAsync(todo)">Save</button>
             </div>
         </div>
     </div>
 </div>
 
+<Toasts class="p-3" Messages="messages" AutoHide="true" Delay="5000" Placement="ToastsPlacement.BottomLeft" />
+
 @code {
+    [Parameter] public EventCallback OnUpdate { get; set; }
     [Parameter] public Todo? todo { get; set; }
-    public Todo newTodo = new Todo();
+
+    List<ToastMessage> messages = new List<ToastMessage>();
+
+    private void ShowMessage() => messages.Add(CreateToastMessage());
+
+    private ToastMessage CreateToastMessage()
+    => new ToastMessage
+        {
+            Type = ToastType.Success,
+            Title = "Successfully Updated Todo Item!",
+            Message = "That item got altered to high hell!"
+        };
+
     public bool isChecked;
 
-    public async Task UpdateItemAsync(int todoId, Todo todo)
+    public async Task UpdateItemAsync(Todo todo)
     {
         var client = ClientFactory.CreateClient();
-        var request = new HttpRequestMessage(HttpMethod.Put, $"https://localhost:7262/api/todo/{todoId}")
+        var request = new HttpRequestMessage(HttpMethod.Put, $"https://localhost:7262/api/todo/")
             {
                 Content = new StringContent(JsonSerializer.Serialize(todo), System.Text.Encoding.UTF8, "application/json")
             };
@@ -57,9 +72,10 @@
 
         if (response.IsSuccessStatusCode)
         {
-            // Call TodoGetAll to update
-            // Send toast message
-            Console.WriteLine("Peepee");
+            await OnUpdate.InvokeAsync();
+            ShowMessage();
+
+            
         }
     }
 }
