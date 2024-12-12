@@ -11,6 +11,7 @@
 @using MyComponents.SingleTodo
 @using ApiRequestComponents.TodoPost
 @using ApiRequestComponents.TodoDelete
+@using ApiRequestComponents.TodoUpdate
 
 <div class="container">
     <div class="row">
@@ -29,13 +30,33 @@
 {
     foreach (var todo in todos.Where(i => i.Title.ToLower().Contains(searchInput.ToLower())).OrderBy(i => i.Id))
     {
-        <div class="">
-            <SingleTodo Id="@todo.Id"
-                        Title="@todo.Title"
-                        TodoOwner="@todo.TodoOwner"
-                        Description="@Description(todo.Description)"
-                        isCompleted="@todo.isCompleted" />
-            <TodoDelete todoId="@todo.Id" OnDelete="HandleChange" todo="@todo" />
+        @* <TodoUpdate todo="todo"/> *@
+        <div class="single-todo-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <SingleTodo Id="@todo.Id"
+                                    Title="@todo.Title"
+                                    TodoOwner="@todo.TodoOwner"
+                                    Description="@Description(todo.Description)"
+                                    isCompleted="@todo.isCompleted" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8"></div>
+                    <div class="col-2">
+                        <TodoUpdate 
+                            OnUpdate="HandleChange"
+                            todo="todo" />
+                    </div>
+                    <div class="col-2 delete-button-container">
+                        <TodoDelete 
+                            todoId="@todo.Id" 
+                            OnDelete="HandleChange" 
+                            todo="@todo" />
+                    </div>
+                </div>
+            </div>
         </div>
     }
     if (todos.Where(i => i.Title.ToLower().Contains(searchInput.ToLower())).Count() == 0)
@@ -47,14 +68,37 @@ else
 {    
     foreach(var todo in todos)
     {
-        <div class="">
-            <SingleTodo Id="@todo.Id"
-                        Title="@todo.Title"
-                        TodoOwner="@todo.TodoOwner"
-                        Description="@Description(todo.Description)"
-                        isCompleted="@todo.isCompleted" />
-            <TodoDelete todoId="@todo.Id" OnDelete="HandleChange" todo="@todo" />
+        <div class="single-todo-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <SingleTodo Id="@todo.Id"
+                                    Title="@todo.Title"
+                                    TodoOwner="@todo.TodoOwner"
+                                    Description="@Description(todo.Description)"
+                                    isCompleted="@todo.isCompleted" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8"></div>
+                    <div class="col-2">
+                        <TodoUpdate 
+                            OnUpdate="HandleChange"
+                            todo="todo" />
+                    </div>
+                    <div class="col-2 delete-button-container">
+                        <TodoDelete 
+                            todoId="@todo.Id" 
+                            OnDelete="HandleChange" 
+                            todo="@todo" />
+                    </div>
+                </div>
+            </div>
         </div>
+        @if(todos.Count() == 0)
+        {
+            <h2>Nothing to do yet!</h2>
+        }
     }
 }
 @code{

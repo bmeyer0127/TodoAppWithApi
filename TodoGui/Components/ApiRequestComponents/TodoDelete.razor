@@ -4,7 +4,6 @@
 @using TodoGui.Models
 @using MyComponents.SingleTodo
 
-@* <button type="button" class="btn btn-danger delete-button" @onclick="async() => await DeleteItemAsync(id)">Delete</button> *@
 <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal" data-bs-target=@($"#deleteTodo-{todoId}")>Delete</button>
 
 <div id="deleteTodo-@todoId" class="modal fade" tabindex="-1">
@@ -45,7 +44,7 @@
     => new ToastMessage
         {
             Type = ToastType.Success,
-            Title = "Successfully Deleted todo Item!",
+            Title = "Successfully Deleted Todo Item!",
             Message = "That item got beefed"
         };
 

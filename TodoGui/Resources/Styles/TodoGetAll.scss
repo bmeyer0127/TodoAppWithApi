@@ -1,0 +1,28 @@
+@import '_variables';
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+.single-todo-container {
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: .5rem;
+    margin-top: 1rem;
+    display: flex;
+    //z-index: -1;
+}
+
+//.single-todo-container:hover {
+//    border: 4px solid blue;
+//    cursor: pointer;
+//}
+
+.single-todo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-button-container {
+    display: flex;
+    justify-content: end;
+}

@@ -1,0 +1,19 @@
+.single-todo-container {
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  display: flex;
+}
+
+.single-todo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-button-container {
+  display: flex;
+  justify-content: end;
+}
+
+/*# sourceMappingURL=TodoGetAll.razor.css.map */
