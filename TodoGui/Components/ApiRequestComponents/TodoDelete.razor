@@ -4,7 +4,7 @@
 @using TodoGui.Models
 @using MyComponents.SingleTodo
 
-<button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal" data-bs-target=@($"#deleteTodo-{todoId}")>Delete</button>
+<button type="button" class="btn btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target=@($"#deleteTodo-{todoId}")>Delete</button>
 
 <div id="deleteTodo-@todoId" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
@@ -22,8 +22,8 @@
                 <h4>(This is super mega permanent)</h4>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-outline-danger" data-bs-dismiss="modal" @onclick="async() => await DeleteItemAsync(todo.Id)">Delete</button>
+                <button class="btn btn-outline-secondary cancel-button" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-outline-danger delete-button" data-bs-dismiss="modal" @onclick="async() => await DeleteItemAsync(todo.Id)">Delete</button>
             </div>
         </div>
     </div>

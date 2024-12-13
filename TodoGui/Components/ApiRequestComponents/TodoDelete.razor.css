@@ -1,0 +1,21 @@
+.delete-button {
+  border-color: #FC7D49;
+  color: #FC7D49;
+}
+
+.delete-button:hover {
+  background-color: #FC7D49;
+  color: #252525;
+}
+
+.cancel-button {
+  border-color: black;
+  color: black;
+}
+
+.cancel-button:hover {
+  background-color: black;
+  color: #252525;
+}
+
+/*# sourceMappingURL=TodoDelete.razor.css.map */

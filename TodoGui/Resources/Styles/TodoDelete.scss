@@ -1,0 +1,24 @@
+@import '_variables';
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+.delete-button {
+    border-color: $danger-background-color;
+    color: $danger-background-color;
+}
+
+.delete-button:hover {
+    background-color: $danger-background-color;
+    color: $text-color;
+}
+
+.cancel-button {
+    border-color: $success-background-color;
+    color: $success-background-color;
+}
+
+.cancel-button:hover {
+    background-color: $success-background-color;
+    color: $text-color;
+}

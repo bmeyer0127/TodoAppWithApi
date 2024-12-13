@@ -4,6 +4,7 @@
 @import "../../node_modules/bootstrap/scss/mixins";
 
 .single-todo-container {
+    background-color: $component-background-color;
     border: 2px solid black;
     border-radius: 15px;
     padding: .5rem;

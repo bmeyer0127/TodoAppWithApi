@@ -1,0 +1,1 @@
+{"version":3,"sourceRoot":"","sources":["../../Resources/Styles/TodoDelete.scss","../../Resources/Styles/_variables.scss"],"names":[],"mappings":"AAKA;EACI,cCEsB;EDDtB,OCCsB;;;ADE1B;EACI,kBCHsB;EDItB,OCNS;;;ADSb;EACI,cCPuB;EDQvB,OCRuB;;;ADW3B;EACI,kBCZuB;EDavB,OChBS","file":"TodoDelete.razor.css"}
